@@ -18,7 +18,7 @@ RUN apk --no-cache --update add python3 \
   && LIBRARY_PATH=/lib:/usr/lib /bin/sh -c "pip install -r requirements.txt" \
   && touch /usr/local/taiga/taiga-back/settings/dockerenv.py \
   && rm -r /root/.cache \
-  && apk del .build-dependencies
+  && apk del .build-dependencies \
   && rm -rf /var/cache/apk/*
 
 COPY ./entrypoint.sh /
