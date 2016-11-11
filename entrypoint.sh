@@ -4,7 +4,7 @@ cd /usr/local/taiga/taiga-back/
 #echo "Waiting for Postgresql to be available..." 
 #while !{nc -z $PGHOST 5432}; do sleep 1; done
 
-cat > /usr/local/taiga/taiga-back/settings/local.py
+cat > /usr/local/taiga/taiga-back/settings/local.py <<EOF
 from .common import *
 
 MEDIA_URL = "$SCHEME://$HOSTNAME/media/"
@@ -37,7 +37,7 @@ DATABASES = {
 }
 EOF
 
-cat > /usr/local/taiga/uwsgi.ini
+cat > /usr/local/taiga/uwsgi.ini <<EOF
 [uwsgi]
 master = true
 no-orphans = true
