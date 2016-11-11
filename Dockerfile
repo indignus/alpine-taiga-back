@@ -2,7 +2,7 @@ FROM alpine:latest
 MAINTAINER indignus
 
 RUN apk --no-cache --update add python3 \
-  postgresql-dev netcat-openbsd libxslt-dev libxml2-dev \
+  postgresql-dev libxslt-dev libxml2-dev \
   libjpeg-turbo-dev zeromq-dev \
   && apk add --no-cache --virtual .build-dependencies \
   musl-dev python3-dev linux-headers \
