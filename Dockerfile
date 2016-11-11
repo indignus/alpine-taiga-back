@@ -9,8 +9,9 @@ RUN apk --no-cache --update add python3 \
   git zlib-dev libjpeg-turbo-dev gcc \
   && python3 -m ensurepip \
   && rm -r /usr/lib/python*/ensurepip \
-  && pip3 install --upgrade pip setuptools uwsgi && \
-  && mkdir -p /usr/local/taiga && adduser -D -h /usr/local/taiga taiga \
+  && pip3 install --upgrade pip setuptools uwsgi \
+  && mkdir -p /usr/local/taiga \
+  && adduser -D -h /usr/local/taiga taiga \
   && git clone https://github.com/taigaio/taiga-back.git /usr/local/taiga/taiga-back \
   && cd /usr/local/taiga/taiga-back \
   && git checkout stable \
