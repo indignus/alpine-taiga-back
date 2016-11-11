@@ -1,15 +1,15 @@
-FROM alpine
+FROM alpine:latest
 MAINTAINER indignus
 
 RUN apk --no-cache --update add python3 \
-  postgresql-dev netcat-openbsd \
-  libxslt-dev libxml2-dev libjpeg-turbo-dev zeromq-dev \
+  postgresql-dev netcat-openbsd libxslt-dev libxml2-dev \
+  libjpeg-turbo-dev zeromq-dev \
   && apk add --no-cache --virtual .build-dependencies \
   musl-dev python3-dev linux-headers \
   git zlib-dev libjpeg-turbo-dev gcc \
   && python3 -m ensurepip \
   && rm -r /usr/lib/python*/ensurepip \
-  && pip3 install --upgrade pip setuptools uwsgi \
+  && pip3 install --upgrade pip setuptools \
   && mkdir -p /usr/local/taiga \
   && adduser -D -h /usr/local/taiga taiga \
   && git clone https://github.com/taigaio/taiga-back.git /usr/local/taiga/taiga-back \
@@ -19,6 +19,7 @@ RUN apk --no-cache --update add python3 \
   && touch /usr/local/taiga/taiga-back/settings/dockerenv.py \
   && rm -r /root/.cache \
   && apk del .build-dependencies
+  && rm -rf /var/cache/apk/*
 
 COPY ./entrypoint.sh /
 EXPOSE 8000
