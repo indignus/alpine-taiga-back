@@ -6,7 +6,7 @@ RUN apk --no-cache --update add python3 postgresql-dev libxslt-dev libxml2-dev l
       git zlib-dev libjpeg-turbo-dev gcc && \
     python3 -m ensurepip && \
     rm -r /usr/lib/python*/ensurepip && \
-    pip3 install --upgrade pip setuptools circus && \
+    pip3 install --upgrade pip setuptools uwsgi && \
     mkdir -p /usr/local/taiga && adduser -D -h /usr/local/taiga taiga && \
     git clone https://github.com/taigaio/taiga-back.git /usr/local/taiga/taiga-back && \
     mkdir /usr/local/taiga/logs && \
@@ -17,8 +17,6 @@ RUN apk --no-cache --update add python3 postgresql-dev libxslt-dev libxml2-dev l
     rm -r /root/.cache && \
     apk del .build-dependencies
 
-COPY ./local.py /usr/local/taiga/taiga-back/settings/local.py
-RUN chown :taiga /usr/local/taiga/taiga-back/settings/local.py
 COPY ./entrypoint.sh /
 EXPOSE 8000
 CMD ["/entrypoint.sh"]
