@@ -43,9 +43,8 @@ master = true
 no-orphans = true
 processes = 3
 threads = 60
-
+buffer-size = 32768
 socket = 0.0.0.0:8000
-http = 0.0.0.0:80
 
 chdir = /usr/local/taiga/taiga-back/
 module = taiga.wsgi:application
@@ -53,11 +52,11 @@ module = taiga.wsgi:application
 vacuum = true
 EOF
 
-python manage.py migrate --noinput
-python manage.py loaddata initial_user
-python manage.py loaddata initial_project_templates
-python manage.py loaddata initial_role
-python manage.py compilemessages
-python manage.py collectstatic --noinput
+python3 manage.py migrate --noinput
+python3 manage.py loaddata initial_user
+python3 manage.py loaddata initial_project_templates
+python3 manage.py loaddata initial_role
+python3 manage.py compilemessages
+python3 manage.py collectstatic --noinput
 
 uwsgi --ini /usr/local/taiga/uwsgi.ini
