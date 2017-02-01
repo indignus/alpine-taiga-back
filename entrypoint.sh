@@ -9,7 +9,9 @@ from .common import *
 
 MEDIA_URL = "$SCHEME://$HOSTNAME/media/"
 STATIC_URL = "$SCHEME://$HOSTNAME/static/"
-ADMIN_MEDIA_PREFIX = "$SCHEME://$HOSTNAME/static/admin/"
+STATIC_ROOT = "/usr/local/taiga/taiga-back/static"
+SITES["api"]["scheme"] = "$SCHEME"
+SITES["api"]["domain"] = "$HOSTNAME"
 SITES["front"]["scheme"] = "$SCHEME"
 SITES["front"]["domain"] = "$HOSTNAME"
 
@@ -17,8 +19,7 @@ SECRET_KEY = "$SECRET_KEY"
 
 DEBUG = False
 TEMPLATE_DEBUG = False
-PUBLIC_REGISTER_ENABLED = True
-
+PUBLIC_REGISTER_ENABLED = False
 
 ADMINS = (
     ("Admin", "$ADMIN_EMAIL"),
@@ -42,9 +43,11 @@ cat > /usr/local/taiga/uwsgi.ini <<EOF
 master = true
 no-orphans = true
 processes = 3
-threads = 60
+threads = 20
 buffer-size = 32768
 socket = 0.0.0.0:8000
+uid = taiga
+gid = taiga
 
 chdir = /usr/local/taiga/taiga-back/
 module = taiga.wsgi:application
@@ -52,11 +55,12 @@ module = taiga.wsgi:application
 vacuum = true
 EOF
 
-python3 manage.py migrate --noinput
-python3 manage.py loaddata initial_user
-python3 manage.py loaddata initial_project_templates
-python3 manage.py loaddata initial_role
-python3 manage.py compilemessages
+#initial setup
+#python3 manage.py migrate --noinput
+#python3 manage.py loaddata initial_user
+#python3 manage.py loaddata initial_project_templates
+#python3 manage.py loaddata initial_role
+#python3 manage.py compilemessages
 python3 manage.py collectstatic --noinput
-
+set -x chown -R taiga:taiga /usr/local/taiga
 uwsgi --ini /usr/local/taiga/uwsgi.ini

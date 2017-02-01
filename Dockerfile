@@ -1,7 +1,8 @@
 FROM alpine:latest
 MAINTAINER indignus
 
-RUN apk --no-cache --update add python3 \
+RUN apk --no-cache --update add \
+  python3 gettext \
   postgresql-dev libxslt-dev libxml2-dev \
   libjpeg-turbo-dev zeromq-dev \
   && apk add --no-cache --virtual .build-dependencies \
