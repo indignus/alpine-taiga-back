@@ -4,7 +4,7 @@ MAINTAINER indignus
 RUN apk --no-cache --update add \
   python3 gettext \
   postgresql-dev libxslt-dev libxml2-dev \
-  libjpeg-turbo-dev zeromq-dev \
+  libjpeg-turbo-dev zeromq-dev libffi-dev \
   && apk add --no-cache --virtual .build-dependencies \
   musl-dev python3-dev linux-headers \
   git zlib-dev libjpeg-turbo-dev gcc \

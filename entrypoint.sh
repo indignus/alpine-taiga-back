@@ -43,7 +43,7 @@ cat > /usr/local/taiga/uwsgi.ini <<EOF
 master = true
 no-orphans = true
 processes = 3
-threads = 20
+threads = 5
 buffer-size = 32768
 socket = 0.0.0.0:8000
 uid = taiga
